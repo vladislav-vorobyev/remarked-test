@@ -23,7 +23,9 @@ try {
     $app->run();
     
 } catch (\Exception $e) {
-    echo json_encode([
+    $response = Storage::get('Response');
+    $response->json([
        'error' => $e->getMessage() 
-    ]);
+    ], 400);
+    $response->render();
 }

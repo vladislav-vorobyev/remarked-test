@@ -14,6 +14,11 @@ namespace My\Engine;
 class Response {
 
     /**
+     * @var int response code
+     */
+    public $code = 200;
+
+    /**
      * @var string output content
      */
     public $content;
@@ -24,7 +29,8 @@ class Response {
      * 
      * @param mixed data
      */
-    public function json($data) {
+    public function json($data, $code = 200) {
+        $this->code = $code;
         // $node = getenv('NODE');
         $data = [
             'content' => $data,
@@ -41,6 +47,7 @@ class Response {
      */
     public function render()
     {
+        http_response_code($this->code);
         header('Content-Type: application/json');
         echo $this->content;
     }

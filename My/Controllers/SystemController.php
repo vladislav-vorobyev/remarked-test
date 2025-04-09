@@ -40,6 +40,6 @@ class SystemController {
     {
         return $this->response->json([
             'error' => 'not found'
-        ]);
+        ], 404);
     }
 }

@@ -41,7 +41,7 @@ Request:
 ```
 {
     "datetime": "2025-04-12 12:12",
-    "customer": {"birthday":"1962-04-09", "gender":"M"},
+    "customer": {"birthday":"1992-04-09", "gender":"M"},
     "basket": [
         {"price":10, "quantity":9},
         {"price":5, "quantity":2}

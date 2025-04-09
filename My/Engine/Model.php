@@ -60,6 +60,16 @@ abstract class Model {
                         throw new \Exception("Wrong structure, $key is not an integer.");
                     break;
 
+                case 'f':
+                    if (!is_float($data[$key]))
+                        throw new \Exception("Wrong structure, $key is not a float.");
+                    break;
+
+                case 'p':
+                    if (!(is_int($data[$key]) || is_float($data[$key])))
+                        throw new \Exception("Wrong structure, $key is not an integer or a float.");
+                    break;
+
                 case 'b':
                     if (!is_bool($data[$key]))
                         throw new \Exception("Wrong structure, $key is not a boolean.");

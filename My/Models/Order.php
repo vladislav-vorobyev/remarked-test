@@ -56,7 +56,7 @@ class Order extends Model {
 
         // Проверка корзины
         foreach ($this->data['basket'] as $item) {
-            $this->verify_structure(['price' => 'i', 'quantity' => 'i'], $item);
+            $this->verify_structure(['price' => 'p', 'quantity' => 'i'], $item);
         }
     }
 
@@ -92,7 +92,7 @@ class Order extends Model {
 
         // Округляем до копеек
         $price = round($price * 100) / 100;
-        
+
         return $price;
     }
     

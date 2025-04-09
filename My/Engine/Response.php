@@ -32,10 +32,10 @@ class Response {
     public function json($data, $code = 200) {
         $this->code = $code;
         // $node = getenv('NODE');
-        $data = [
-            'content' => $data,
-            // 'node' => $node
-        ];
+        // $data = [
+        //     'content' => $data,
+        //     'node' => $node
+        // ];
         $this->content = json_encode($data);
         return $this;
     }

@@ -8,7 +8,6 @@ namespace My\Models;
 
 use My\Engine\Model;
 use \DateTime;
-use \DateInterval;
 
 /**
  * 
@@ -85,7 +84,7 @@ class Order extends Model {
 
         // 2. Скидка на ранний заказ - если заказ сделан за неделю и более, 
         // скидка составит 4 %
-        $discount_from_date = ( new DateTime('now') )->add( DateInterval::createFromDateString('7 days') );
+        $discount_from_date = ( new DateTime('now') )->modify('+7 days');
         if ($this->data['datetime'] >= $discount_from_date) {
             $price *= 0.96;
         }

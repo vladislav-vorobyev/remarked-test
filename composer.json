@@ -1,17 +1,15 @@
 {
-  "name": "my/test1",
-  "version": "1.2.1",
   "autoload": {
     "psr-4": {
       "My\\": "My"
     }
   },
   "require-dev": {
-    "yoast/phpunit-polyfills": "~1.0"
+    "phpunit/phpunit": "^9"
   },
   "autoload-dev": {
     "psr-4": {
-      "My-tests\\": "My-tests"
+      "My\\": "tests"
     }
   }
 }

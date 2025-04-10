@@ -1,7 +1,7 @@
 <?php
 namespace My\Models;
 
-use Yoast\PHPUnitPolyfills\TestCases\TestCase;
+use PHPUnit\Framework\TestCase;
 use \DateTime;
 
 class OrderTest extends TestCase

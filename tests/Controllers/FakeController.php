@@ -1,9 +1,4 @@
 <?php
-/**
- * 
- * This file is part of remarked-test API project.
- * 
- */
 namespace My\Controllers;
 
 use My\Engine\Response;
@@ -11,10 +6,10 @@ use My\Engine\Storage;
 
 /**
  * 
- * System controller.
+ * Controller to do tests.
  * 
  */
-class SystemController {
+class FakeController {
 
     /**
      * @var Response
@@ -33,13 +28,13 @@ class SystemController {
 
     /**
      * 
-     * Not found handler.
+     * Symple handler.
      * 
      */
-    public function notFound()
+    public function foo()
     {
         return $this->response->json([
-            'error' => 'not found'
-        ], 404);
+            'content' => 'foo'
+        ], 200);
     }
 }

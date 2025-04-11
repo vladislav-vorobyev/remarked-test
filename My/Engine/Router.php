@@ -1,7 +1,7 @@
 <?php
 /**
  * 
- * This file is part of test1 API project.
+ * This file is part of remarked-test API project.
  * 
  */
 namespace My\Engine;
@@ -21,7 +21,7 @@ class Router {
     /**
      * @var array A collection of route-matching rules to iterate through.
      */
-    private $map = ['GET' => [], 'POST' => []];
+    private $map = [];
 
     /**
      * 
@@ -31,30 +31,24 @@ class Router {
     public function __construct()
     {
         $this->request = Storage::get('Request');
+
+        // fill default 404 route
+        $this->map['/404'] = [];
+        $this->map['/404']['GET'] = ['SystemController', 'notFound'];
     }
 
     /**
      * 
-     * Set a GET route.
+     * Set a route.
      * 
+     * @param string request method
      * @param string site uri
      * @param string controller and method names
      */
-    public function get($path, $params)
+    public function setRoute($method, $path, $params)
     {
-        $this->map['GET'][$path] = $params;
-    }
-
-    /**
-     * 
-     * Set a POST route.
-     * 
-     * @param string site uri
-     * @param string controller and method names
-     */
-    public function post($path, $params)
-    {
-        $this->map['POST'][$path] = $params;
+        if (!isset($this->map[$path])) $this->map[$path] = [];
+        $this->map[$path][$method] = $params;
     }
 
     /**
@@ -65,14 +59,21 @@ class Router {
      */
     public function getCurrent()
     {
-        // Get routes map for current request method
-        if (empty($this->map[$this->request->request_method])) {
-            throw new \Exception('Not found method');
-        }
-        $current_map = $this->map[$this->request->request_method];
+        // Get current request method and path
+        $method = $this->request->request_method;
+        $path = $this->request->uri;
 
-        // Determine a controller and assign it
-        $current_route = empty($current_map[$this->request->uri])? $current_map['/404'] : $current_map[$this->request->uri];
+        // Determine a route from map
+        if (empty($this->map[$path])) {
+            $path = '/404';
+        }
+        if (empty($this->map[$path][$method])) {
+            $current_route = $this->map['/404']['GET'];
+        } else {
+            $current_route = $this->map[$path][$method];
+        }
+
+        // Assign determined route
         $this->request->setRoute($current_route);
 
         // Return request object

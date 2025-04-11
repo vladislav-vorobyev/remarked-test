@@ -1,7 +1,7 @@
 <?php
 /**
  * 
- * This file is part of test1 API project.
+ * This file is part of remarked-test API project.
  * 
  */
 namespace My\Models;
@@ -64,7 +64,7 @@ class Order extends Model {
      * Order price calculation.
      * 
      */
-    public function price_calc()
+    public function priceCalc()
     {
         $price = 0;
 

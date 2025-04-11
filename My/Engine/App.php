@@ -1,7 +1,7 @@
 <?php
 /**
  * 
- * This file is part of test1 API project.
+ * This file is part of remarked-test API project.
  * 
  */
 namespace My\Engine;
@@ -27,10 +27,6 @@ class App {
     {
         // Get this application router object
         $this->router = Storage::get('Router');
-
-        // Set not found handler
-        $this->router->get('/404', ['SystemController', 'notFound']);
-        $this->router->post('/404', ['SystemController', 'notFound']);
     }
 
     /**

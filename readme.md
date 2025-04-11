@@ -46,8 +46,7 @@ Y = X * (1 - A) * (1 - B)
 **Примеры для теста:**
 
 **(1)**
-
-Request:
+*Request:*
 ```
 {
     "datetime": "2025-04-12 12:12",
@@ -58,7 +57,7 @@ Request:
     ]
 }
 ```
-Response:
+*Response:*
 ```
 {
     "price": 100
@@ -66,8 +65,7 @@ Response:
 ```
 
 **(2)**
-
-Request:
+*Request:*
 ```
 {
     "datetime": "2025-12-12 12:12",
@@ -78,9 +76,24 @@ Request:
     ]
 }
 ```
-Response:
+*Response:*
 ```
 {
     "price": 176.93
 }
+```
+
+---
+
+**PHPUnit tests**
+
+```
+PS > ./vendor/bin/phpunit tests
+PHPUnit 9.6.22 by Sebastian Bergmann and contributors.
+
+...........................                                       27 / 27 (100%)
+
+Time: 00:00.543, Memory: 4.00 MB
+
+OK (27 tests, 49 assertions)
 ```

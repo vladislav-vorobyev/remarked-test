@@ -1,7 +1,7 @@
 <?php
 /**
  * 
- * This file is part of test1 API project.
+ * This file is part of remarked-test API project.
  * 
  */
 namespace My\Engine;
@@ -12,6 +12,11 @@ namespace My\Engine;
  * 
  */
 class Request {
+
+    /**
+     * @var string root path of the site
+     */
+    public $root_uri;
 
     /**
      * @var string get, post etc
@@ -48,8 +53,11 @@ class Request {
      * Constructor.
      * 
      */
-    public function __construct()
+    public function __construct($root_uri = '/')
     {
+        // base path of current site
+        $this->root_uri = substr($root_uri, -1) === '/'? $root_uri : $root_uri . '/';
+
         // request method
         $this->request_method = $_SERVER['REQUEST_METHOD'];
 
@@ -63,6 +71,11 @@ class Request {
         $this->uri = $parameters['path'];
         $this->params = $query;
 
+        // sub site root from uri
+        $rootlen = strlen($this->root_uri);
+        if ($rootlen > 1 && substr_compare($this->uri, $this->root_uri, 0, $rootlen) === 0)
+            $this->uri = substr($this->uri, $rootlen - 1);
+        
         // determine post body based on request header 'Content-Type'
         $headers = getallheaders();
         if (isset($headers['Content-Type'])) {

@@ -1,7 +1,7 @@
 <?php
 /**
  * 
- * This file is part of test1 API project.
+ * This file is part of remarked-test API project.
  * 
  */
 namespace My\Controllers;
@@ -43,13 +43,13 @@ class OrderController {
      * 
      * @return Response current response
      */
-    public function price_calc()
+    public function priceCalc()
     {
         // Создаем объект на основе запроса
         $order = new Order($this->request->post);
 
         // Вычисляем скидку
-        $price = $order->price_calc();
+        $price = $order->priceCalc();
 
         // Ответ
         return $this->response->json([

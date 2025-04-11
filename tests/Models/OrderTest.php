@@ -44,111 +44,70 @@ class OrderTest extends TestCase
     }
 
 
-    public function testWrongStruct1()
-    {
-        $this->expectException('\Exception');
-        $order = new Order([
-            "customer" => ["birthday" => "1962-04-08", "gender" => "F"],
-            "basket" => [["price" => 5, "quantity" => 20]]
-        ]);
+    public function wrongStructsProvider () {
+        return [
+            [ // 1
+                "customer" => ["birthday" => "1962-04-08", "gender" => "F"],
+                "basket" => [["price" => 5, "quantity" => 20]]
+            ],
+            [ // 2
+                "datetime" => "2025-12-12 12:12",
+                "basket" => [["price" => 5, "quantity" => 20]]
+            ],
+            [ // 3
+                "datetime" => "2025-12-12 12:12",
+                "customer" => ["birthday" => "1962-04-08", "gender" => "F"],
+            ],
+            [ // 4
+                "datetime" => "2025-12-12 12:12",
+                "customer" => ["birthday" => "1962-04-08", "gender" => "F"],
+                "basket" => [["quantity" => 20]]
+            ],
+            [ // 5
+                "datetime" => "2025-12-12 12:12",
+                "customer" => ["birthday" => "1962-04-08", "gender" => "F"],
+                "basket" => [["price" => 5]]
+            ],
+            [ // 6
+                "datetime" => "wrong",
+                "customer" => ["birthday" => "1962-04-08", "gender" => "F"],
+                "basket" => [["price" => 5, "quantity" => 20]]
+            ],
+            [ // 7
+                "datetime" => "2000-12-12 12:12",
+                "customer" => ["birthday" => "1962-04-08", "gender" => "F"],
+                "basket" => [["price" => 5, "quantity" => 20]]
+            ],
+            [ // 8
+                "datetime" => "2025-12-12 12:12",
+                "customer" => ["birthday" => "wrong", "gender" => "F"],
+                "basket" => [["price" => 5, "quantity" => 20]]
+            ],
+            [ // 9
+                "datetime" => "2025-12-12 12:12",
+                "customer" => ["birthday" => "1962-04-08", "gender" => "A"],
+                "basket" => [["price" => 5, "quantity" => 20]]
+            ],
+            [ // 10
+                "datetime" => "2025-12-12 12:12",
+                "customer" => ["birthday" => "1962-04-08", "gender" => "F"],
+                "basket" => [["price" => "5", "quantity" => 20]]
+            ],
+            [ // 11
+                "datetime" => "2025-12-12 12:12",
+                "customer" => ["birthday" => "1962-04-08", "gender" => "F"],
+                "basket" => [["price" => 5, "quantity" => 20.0]]
+            ]
+        ];
     }
 
-    public function testWrongStruct2()
+    /**
+     * @dataProvider wrongStructsProvider
+     */
+    public function testWrongStruct($post)
     {
         $this->expectException('\Exception');
-        $order = new Order([
-            "datetime" => "2025-12-12 12:12",
-            "basket" => [["price" => 5, "quantity" => 20]]
-        ]);
-    }
-
-    public function testWrongStruct3()
-    {
-        $this->expectException('\Exception');
-        $order = new Order([
-            "datetime" => "2025-12-12 12:12",
-            "customer" => ["birthday" => "1962-04-08", "gender" => "F"],
-        ]);
-    }
-
-    public function testWrongStruct4()
-    {
-        $this->expectException('\Exception');
-        $order = new Order([
-            "datetime" => "2025-12-12 12:12",
-            "customer" => ["birthday" => "1962-04-08", "gender" => "F"],
-            "basket" => [["quantity" => 20]]
-        ]);
-    }
-
-    public function testWrongStruct5()
-    {
-        $this->expectException('\Exception');
-        $order = new Order([
-            "datetime" => "2025-12-12 12:12",
-            "customer" => ["birthday" => "1962-04-08", "gender" => "F"],
-            "basket" => [["price" => 5]]
-        ]);
-    }
-
-    public function testWrongStruct6()
-    {
-        $this->expectException('\Exception');
-        $order = new Order([
-            "datetime" => "wrong",
-            "customer" => ["birthday" => "1962-04-08", "gender" => "F"],
-            "basket" => [["price" => 5, "quantity" => 20]]
-        ]);
-    }
-
-    public function testWrongStruct7()
-    {
-        $this->expectException('\Exception');
-        $order = new Order([
-            "datetime" => "2000-12-12 12:12",
-            "customer" => ["birthday" => "1962-04-08", "gender" => "F"],
-            "basket" => [["price" => 5, "quantity" => 20]]
-        ]);
-    }
-
-    public function testWrongStruct8()
-    {
-        $this->expectException('\Exception');
-        $order = new Order([
-            "datetime" => "2025-12-12 12:12",
-            "customer" => ["birthday" => "wrong", "gender" => "F"],
-            "basket" => [["price" => 5, "quantity" => 20]]
-        ]);
-    }
-
-    public function testWrongStruct9()
-    {
-        $this->expectException('\Exception');
-        $order = new Order([
-            "datetime" => "2025-12-12 12:12",
-            "customer" => ["birthday" => "1962-04-08", "gender" => "A"],
-            "basket" => [["price" => 5, "quantity" => 20]]
-        ]);
-    }
-
-    public function testWrongStruct10()
-    {
-        $this->expectException('\Exception');
-        $order = new Order([
-            "datetime" => "2025-12-12 12:12",
-            "customer" => ["birthday" => "1962-04-08", "gender" => "F"],
-            "basket" => [["price" => "5", "quantity" => 20]]
-        ]);
-    }
-
-    public function testWrongStruct11()
-    {
-        $this->expectException('\Exception');
-        $order = new Order([
-            "datetime" => "2025-12-12 12:12",
-            "customer" => ["birthday" => "1962-04-08", "gender" => "F"],
-            "basket" => [["price" => 5, "quantity" => 20.0]]
-        ]);
+        $order = new Order($post);
     }
 
 
@@ -168,7 +127,7 @@ class OrderTest extends TestCase
                 ["price" => 20, "quantity" => 5]
             ]
         ]);
-        $price = $order->price_calc();
+        $price = $order->priceCalc();
         $this->assertEquals($price, 122.99);
     }
 
@@ -187,7 +146,7 @@ class OrderTest extends TestCase
                 ["price" => 20, "quantity" => 5]
             ]
         ]);
-        $price = $order->price_calc();
+        $price = $order->priceCalc();
         $this->assertEquals($price, 95);
         $order = new Order([
             "datetime" => $this->printDatetime( (new DateTime('now'))->modify('+1 day') ),
@@ -199,7 +158,7 @@ class OrderTest extends TestCase
                 ["price" => 20, "quantity" => 5]
             ]
         ]);
-        $price = $order->price_calc();
+        $price = $order->priceCalc();
         $this->assertEquals($price, 100);
     }
 
@@ -218,7 +177,7 @@ class OrderTest extends TestCase
                 ["price" => 20, "quantity" => 5]
             ]
         ]);
-        $price = $order->price_calc();
+        $price = $order->priceCalc();
         $this->assertEquals($price, 95);
         $order = new Order([
             "datetime" => $this->printDatetime( (new DateTime('now'))->modify('+1 day') ),
@@ -230,7 +189,7 @@ class OrderTest extends TestCase
                 ["price" => 20, "quantity" => 5]
             ]
         ]);
-        $price = $order->price_calc();
+        $price = $order->priceCalc();
         $this->assertEquals($price, 100);
     }
 
@@ -249,7 +208,7 @@ class OrderTest extends TestCase
                 ["price" => 20, "quantity" => 5]
             ]
         ]);
-        $price = $order->price_calc();
+        $price = $order->priceCalc();
         $this->assertEquals($price, 96);
         $order = new Order([
             "datetime" => $this->printDatetime( (new DateTime('now'))->modify('+7 day')->modify('-1 minute') ),
@@ -261,7 +220,7 @@ class OrderTest extends TestCase
                 ["price" => 20, "quantity" => 5]
             ]
         ]);
-        $price = $order->price_calc();
+        $price = $order->priceCalc();
         $this->assertEquals($price, 100);
     }
 
@@ -281,7 +240,7 @@ class OrderTest extends TestCase
                 ["price" => 10, "quantity" => 10]
             ]
         ]);
-        $price = $order->price_calc();
+        $price = $order->priceCalc();
         $this->assertEquals($price, 187);
     }
 
@@ -301,7 +260,7 @@ class OrderTest extends TestCase
                 ["price" => 5, "quantity" => 20]
             ]
         ]);
-        $price = $order->price_calc();
+        $price = $order->priceCalc();
         $this->assertSame($price, 176.93);
     }
 }

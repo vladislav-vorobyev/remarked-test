@@ -164,18 +164,18 @@ class OrderTest extends TestCase
                 "gender" => "M"
             ],
             "basket" => [
-                ["price" => 10, "quantity" => 9],
-                ["price" => 5, "quantity" => 2]
+                ["price" => 22.99, "quantity" => 1],
+                ["price" => 20, "quantity" => 5]
             ]
         ]);
         $price = $order->price_calc();
-        $this->assertEquals($price, 100);
+        $this->assertEquals($price, 122.99);
     }
 
     /**
-     * Discount 5% for male age
+     * Discount 5% of male age
      */
-    public function testAgeMDiscount()
+    public function testMaleAgeDiscount()
     {
         $order = new Order([
             "datetime" => $this->printDatetime( (new DateTime('now'))->modify('+1 day') ),
@@ -189,12 +189,24 @@ class OrderTest extends TestCase
         ]);
         $price = $order->price_calc();
         $this->assertEquals($price, 95);
+        $order = new Order([
+            "datetime" => $this->printDatetime( (new DateTime('now'))->modify('+1 day') ),
+            "customer" => [
+                "birthday" => $this->printDate( (new DateTime('now'))->modify('-63 years')->modify('+1 day') ),
+                "gender" => "M"
+            ],
+            "basket" => [
+                ["price" => 20, "quantity" => 5]
+            ]
+        ]);
+        $price = $order->price_calc();
+        $this->assertEquals($price, 100);
     }
 
     /**
-     * Discount 5% for female age
+     * Discount 5% of female age
      */
-    public function testAgeFDiscount()
+    public function testFemaleAgeDiscount()
     {
         $order = new Order([
             "datetime" => $this->printDatetime( (new DateTime('now'))->modify('+1 day') ),
@@ -208,10 +220,22 @@ class OrderTest extends TestCase
         ]);
         $price = $order->price_calc();
         $this->assertEquals($price, 95);
+        $order = new Order([
+            "datetime" => $this->printDatetime( (new DateTime('now'))->modify('+1 day') ),
+            "customer" => [
+                "birthday" => $this->printDate( (new DateTime('now'))->modify('-58 years')->modify('+1 day') ),
+                "gender" => "F"
+            ],
+            "basket" => [
+                ["price" => 20, "quantity" => 5]
+            ]
+        ]);
+        $price = $order->price_calc();
+        $this->assertEquals($price, 100);
     }
 
     /**
-     * Discount 4% for order date
+     * Discount 4% of order date
      */
     public function testOrderDateDiscount()
     {
@@ -227,6 +251,18 @@ class OrderTest extends TestCase
         ]);
         $price = $order->price_calc();
         $this->assertEquals($price, 96);
+        $order = new Order([
+            "datetime" => $this->printDatetime( (new DateTime('now'))->modify('+7 day')->modify('-1 minute') ),
+            "customer" => [
+                "birthday" => $this->printDate( (new DateTime('now'))->modify('-10 years') ),
+                "gender" => "M"
+            ],
+            "basket" => [
+                ["price" => 20, "quantity" => 5]
+            ]
+        ]);
+        $price = $order->price_calc();
+        $this->assertEquals($price, 100);
     }
 
     /**
@@ -241,12 +277,12 @@ class OrderTest extends TestCase
                 "gender" => "M"
             ],
             "basket" => [
-                ["price" => 10, "quantity" => 10],
-                ["price" => 5, "quantity" => 20]
+                ["price" => 10, "quantity" => 9],
+                ["price" => 10, "quantity" => 10]
             ]
         ]);
         $price = $order->price_calc();
-        $this->assertEquals($price, 194);
+        $this->assertEquals($price, 187);
     }
 
     /**

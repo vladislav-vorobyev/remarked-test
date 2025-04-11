@@ -1,6 +1,16 @@
-**Адрес обработчика на сервере:**
+**Формат запроса:**
 ```
 POST /api/v1/orders/price-calc
+```
+```
+{
+    "datetime" => "YYYY-MM-DD HH:mm",
+    "customer" => ["birthday" => "YYYY-MM-DD", "gender" => "{M|F}"],
+    "basket" => [
+        ["price" => 5, "quantity" => 2],
+        ["price" => 15, "quantity" => 1], ...
+    ]
+}
 ```
 
 **API для расчета итоговой стоимости заказа.**

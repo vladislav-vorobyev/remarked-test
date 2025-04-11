@@ -16,7 +16,7 @@ class OrderControllerTest extends TestCase
             "basket" => [["price" => 10, "quantity" => 2]]
         ]));
         $controller = new OrderController();
-        $response = $controller->price_calc();
+        $response = $controller->priceCalc();
         $this->assertInstanceof('My\Engine\Response', $response);
         $this->assertEquals(200, $response->code);
         $content = json_decode($response->content);

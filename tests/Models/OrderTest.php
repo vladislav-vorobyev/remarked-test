@@ -168,7 +168,7 @@ class OrderTest extends TestCase
                 ["price" => 20, "quantity" => 5]
             ]
         ]);
-        $price = $order->price_calc();
+        $price = $order->priceCalc();
         $this->assertEquals($price, 122.99);
     }
 
@@ -187,7 +187,7 @@ class OrderTest extends TestCase
                 ["price" => 20, "quantity" => 5]
             ]
         ]);
-        $price = $order->price_calc();
+        $price = $order->priceCalc();
         $this->assertEquals($price, 95);
         $order = new Order([
             "datetime" => $this->printDatetime( (new DateTime('now'))->modify('+1 day') ),
@@ -199,7 +199,7 @@ class OrderTest extends TestCase
                 ["price" => 20, "quantity" => 5]
             ]
         ]);
-        $price = $order->price_calc();
+        $price = $order->priceCalc();
         $this->assertEquals($price, 100);
     }
 
@@ -218,7 +218,7 @@ class OrderTest extends TestCase
                 ["price" => 20, "quantity" => 5]
             ]
         ]);
-        $price = $order->price_calc();
+        $price = $order->priceCalc();
         $this->assertEquals($price, 95);
         $order = new Order([
             "datetime" => $this->printDatetime( (new DateTime('now'))->modify('+1 day') ),
@@ -230,7 +230,7 @@ class OrderTest extends TestCase
                 ["price" => 20, "quantity" => 5]
             ]
         ]);
-        $price = $order->price_calc();
+        $price = $order->priceCalc();
         $this->assertEquals($price, 100);
     }
 
@@ -249,7 +249,7 @@ class OrderTest extends TestCase
                 ["price" => 20, "quantity" => 5]
             ]
         ]);
-        $price = $order->price_calc();
+        $price = $order->priceCalc();
         $this->assertEquals($price, 96);
         $order = new Order([
             "datetime" => $this->printDatetime( (new DateTime('now'))->modify('+7 day')->modify('-1 minute') ),
@@ -261,7 +261,7 @@ class OrderTest extends TestCase
                 ["price" => 20, "quantity" => 5]
             ]
         ]);
-        $price = $order->price_calc();
+        $price = $order->priceCalc();
         $this->assertEquals($price, 100);
     }
 
@@ -281,7 +281,7 @@ class OrderTest extends TestCase
                 ["price" => 10, "quantity" => 10]
             ]
         ]);
-        $price = $order->price_calc();
+        $price = $order->priceCalc();
         $this->assertEquals($price, 187);
     }
 
@@ -301,7 +301,7 @@ class OrderTest extends TestCase
                 ["price" => 5, "quantity" => 20]
             ]
         ]);
-        $price = $order->price_calc();
+        $price = $order->priceCalc();
         $this->assertSame($price, 176.93);
     }
 }

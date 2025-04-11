@@ -64,7 +64,7 @@ class Order extends Model {
      * Order price calculation.
      * 
      */
-    public function price_calc()
+    public function priceCalc()
     {
         $price = 0;
 

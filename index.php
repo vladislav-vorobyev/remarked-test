@@ -11,12 +11,15 @@ use My\Engine\DI;
 use My\Engine\Storage;
 
 try {
+    // корень сайта
+    $root_uri = isset($_ENV['ROOT_URI'])? $_ENV['ROOT_URI'] : '/api/v1/';
+
     // создание глобальных сущностей
-    DI::start();
+    DI::start($root_uri);
 
     // задание обработчиков запросов
     $router = Storage::get('Router');
-    $router->post('/api/v1/orders/price-calc/', ['OrderController', 'price_calc']);
+    $router->setRoute('POST', '/orders/price-calc/', ['OrderController', 'priceCalc']);
 
     // запуск обработки
     $app = Storage::get('App');

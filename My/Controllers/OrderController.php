@@ -43,13 +43,13 @@ class OrderController {
      * 
      * @return Response current response
      */
-    public function price_calc()
+    public function priceCalc()
     {
         // Создаем объект на основе запроса
         $order = new Order($this->request->post);
 
         // Вычисляем скидку
-        $price = $order->price_calc();
+        $price = $order->priceCalc();
 
         // Ответ
         return $this->response->json([
